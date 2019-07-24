@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.7.0"
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0"
   },
   "devDependencies": {
     "eslint": "^6.0.1",
