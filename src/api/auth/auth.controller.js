@@ -79,13 +79,13 @@ exports.localLogin = async (ctx) =>{
 
     let account = null;
     try{
-        account = await Account.findByEmailOrUsername(email);
-        console.log(account)
+        account = await Account.findByEmail(email);
     } catch (e){
         ctx.throw(500, e);
     }
 
     if(!account || !account.validatePassword(password)) {
+        console.log(!account, !account.validatePassword(password));
         ctx.status = 403;
         return;
     }
@@ -125,8 +125,9 @@ exports.logout = async (ctx) =>{
     ctx.status = 204;
 };
 
-exports.check = (ctx) =>{
+exports.check = (ctx) => {
     const { user } = ctx.request;
+    console.log(ctx);
 
     if (!user) {
         ctx.status = 403;

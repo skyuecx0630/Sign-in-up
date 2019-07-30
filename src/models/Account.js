@@ -42,18 +42,23 @@ Account.statics.localRegister = function({ username, email, password }) {
 };
 
 Account.statics.findByUsername = function(username) {
-  // 객체에 내장되어있는 값을 사용 할 때는 객체명.키 이런식으로 쿼리하면 됩니다
   return this.findOne({ "profile.username": username }).exec();
 };
 
-Account.statics.findByEmailOrUsername = function({ username, email }) {
+Account.statics.findByEmail = function(email) {
+  return this.findOne({ email }).exec();
+};
+
+Account.statics.findByEmailOrUsername = function({username, email}){
   return this.findOne({
-    // $or 연산자를 통해 둘중에 하나를 만족하는 데이터를 찾습니다
-    $or: [{ "profile.username": username }, { email }]
+    $or: [
+      {profile: username},
+      {email}
+    ]
   }).exec();
 };
 
-Account.methods.validatePassword = (password) => {
+Account.methods.validatePassword = function(password) {
     const hashed = hash(password);
     return this.password === hashed;
 };
