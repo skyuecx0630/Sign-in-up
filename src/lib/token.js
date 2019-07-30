@@ -19,10 +19,14 @@ function generateToken(payload){
 };
 
 function decodeToken(token) {
+    console.log(token, jwtSecret);
     return new Promise(
         (resolve, reject) =>{
             jwt.verify(token, jwtSecret, (error, decoded) =>{
-                if (err) reject(error);
+                if (error){
+                    console.log('error');
+                    reject(error);
+                }
                 resolve(decoded);
             });
         }

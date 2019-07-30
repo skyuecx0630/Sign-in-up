@@ -85,7 +85,6 @@ exports.localLogin = async (ctx) =>{
     }
 
     if(!account || !account.validatePassword(password)) {
-        console.log(!account, !account.validatePassword(password));
         ctx.status = 403;
         return;
     }
