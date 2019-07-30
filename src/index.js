@@ -1,5 +1,11 @@
 require('dotenv').config();
 
+// import Koa from 'koa';
+// import Router from 'koa-router';
+// import mongoose from 'mongoose';
+// import bodyParser from 'koa-bodyparser';
+// import { jwtMiddleware } from './lib/token';
+
 const Koa = require('koa');
 const Router = require('koa-router');
 const mongoose = require('mongoose');
@@ -12,7 +18,7 @@ const api = require('./api');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI, {
-    
+    useNewUrlParser: true
 }).then (
     (response) => {
         console.log('Successfully connected to mongoDB');

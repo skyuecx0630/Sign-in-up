@@ -4,12 +4,18 @@ const Account = require('../../models/Account');
 exports.localRegister = async (ctx) =>{
     //validate data
     const schema = Joi.object().keys({
-        username: Joi.string().alphanum().min(4).max(15).required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required().min(6)
-    });
-
-    console.log (ctx.request);
+    email: Joi.string()
+      .email()
+      .required(),
+    username: Joi.string()
+      .alphanum()
+      .min(4)
+      .max(15)
+      .required(),
+    password: Joi.string()
+      .min(6)
+      .required()
+  });
     
     const result = Joi.validate(ctx.request.body, schema);
 
@@ -73,7 +79,8 @@ exports.localLogin = async (ctx) =>{
 
     let account = null;
     try{
-        account = await Account.findByEmail(email);
+        account = await Account.findByEmailOrUsername(email);
+        console.log(account)
     } catch (e){
         ctx.throw(500, e);
     }
